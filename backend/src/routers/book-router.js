@@ -1,5 +1,6 @@
+require('dotenv').config({path: '../../.env'});
 const express = require('express');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
 const Book = require('../models/book');
 const auth = require('../middleware/auth');
@@ -8,12 +9,13 @@ const router = new express.Router();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.get('/books/search/:query', async (req, res) => {
-  //const search = req.body.search.replace(/\s/g, '+');
-  const search = req.params.query.replace(/\s/g, '+');
+  const searchQuery = req.params.query;
+  console.log(process.env.BOOK_API_KEY);
   try {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}&key=AIzaSyD968eHycEhk20b-4i7rKPDQvJcv-UNdxg`)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${process.env.BOOKS_API_KEY}`)
     .then(response => response.json())
-    .then(data => res.status(201).send(data.items));
+    .then(data => {
+      res.status(201).send(data.items);});
   } catch (err) {
     res.status(400).send(err);
   }
@@ -21,7 +23,6 @@ router.get('/books/search/:query', async (req, res) => {
 
 router.post('/books', auth, async (req, res) => {
   const book = new Book({
-    description: req.body.description,
     author: req.user._id
   });
   try {
