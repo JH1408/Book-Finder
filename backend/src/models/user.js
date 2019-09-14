@@ -1,4 +1,4 @@
-//jshint esversion: 8
+require('dotenv').config({path: '../../.env'});
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');

@@ -2,6 +2,7 @@ require('dotenv').config({path: '../.env'});
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+require('./db/mongoose');
 const User = require('./models/user');
 const Book = require('./models/book');
 const auth = require('./middleware/auth');

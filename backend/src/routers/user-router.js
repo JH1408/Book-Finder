@@ -9,15 +9,16 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.post('/users', async (req, res) => {
   const user = new User({
-    name: req.body.name,
     email: req.body.email,
-    password: req.body.newPassword
+    password: req.body.password
   });
+
   try {
     await user.save();
     const token = await user.generateAuthToken();
     res.cookie('auth_token', token);
-    res.send(user);
+    const data = [user, token]
+    res.send(data);
   } catch (err) {
     res.status(400).send('An account with that email address already exists.');
   }

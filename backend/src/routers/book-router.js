@@ -14,7 +14,8 @@ router.get('/books/search/:query', async (req, res) => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${process.env.BOOKS_API_KEY}`)
     .then(response => response.json())
     .then(data => {
-      res.status(201).send(data.items);});
+      res.status(201).send(data.items);
+    });
   } catch (err) {
     res.status(400).send(err);
   }
