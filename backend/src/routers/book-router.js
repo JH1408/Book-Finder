@@ -10,7 +10,6 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 router.get('/books/search/:query', async (req, res) => {
   const searchQuery = req.params.query;
-  console.log(process.env.BOOK_API_KEY);
   try {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${process.env.BOOKS_API_KEY}`)
     .then(response => response.json())

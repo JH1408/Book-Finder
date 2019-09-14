@@ -1,9 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import createSagaMiddleware from 'redux-saga';
+import bookReducer from './store/reducers/book';
+import {watchBook} from './store/sagas/index';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
+
+const rootReducer = combineReducers({
+  book: bookReducer,
+});
+
+const sagaMiddleware = createSagaMiddleware();
+
+const store = createStore(rootReducer,composeEnhancers(applyMiddleware(sagaMiddleware)));
+
+sagaMiddleware.run(watchBook);
+
+const app = (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
+
+ReactDOM.render(app, document.getElementById('root'));
 
 serviceWorker.unregister();
