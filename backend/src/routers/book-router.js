@@ -27,7 +27,7 @@ router.post('/books', auth, async (req, res) => {
   });
   try {
     await book.save();
-    res.status(201).redirect('books');
+    res.status(201);
   } catch (err) {
     res.status(400).send(err);
   }
@@ -35,24 +35,11 @@ router.post('/books', auth, async (req, res) => {
 
  router.get('/books', auth, async (req, res) => {
      try {
-       res.send(req.user.tasks);
+       res.send(req.user.books);
      } catch(err) {
        res.status(500).send();
      }
  });
-
-router.get('/books/:id', auth, async (req, res) => {
-  const _id = req.params.id;
-  try {
-    const book = await Book.findOne({_id, author: req.user._id});
-    if(!book) {
-      return res.status(404).send();
-    }
-    res.send(book);
-  } catch(err) {
-    res.status(500).send();
-  }
-});
 
 router.delete('/books/:id', auth, async (req, res) => {
   try {

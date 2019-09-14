@@ -22,15 +22,15 @@ export function* authUserSaga(action) {
     returnSecureToken: true
   };
   let url = `http://localhost:3001/users`;
-  // if (!action.isSignup) {
-  //   url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`;
-  // }
+  if (!action.isSignedup) {
+    url = `http://localhost:3001/users/login`;
+  }
   try {
     const response = yield axios.post(url , authData);
     yield localStorage.setItem('token', response.data[1]);
     yield localStorage.setItem('userId', response.data[0]._id);
     yield put(actions.authSuccess(response.data[1], response.data[0]._id));
   } catch(err) {
-    yield put(actions.authFail(err.response.data.error));
+    yield put(actions.authFail(err));
   }
 }

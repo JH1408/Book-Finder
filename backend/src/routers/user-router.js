@@ -12,12 +12,11 @@ router.post('/users', async (req, res) => {
     email: req.body.email,
     password: req.body.password
   });
-
   try {
     await user.save();
     const token = await user.generateAuthToken();
     res.cookie('auth_token', token);
-    const data = [user, token]
+    const data = [user, token];
     res.send(data);
   } catch (err) {
     res.status(400).send('An account with that email address already exists.');

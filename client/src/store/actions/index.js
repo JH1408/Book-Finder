@@ -4,6 +4,10 @@ export {
   searchBooksFail,
   searchBooksStart,
   searchBooksSuccess,
+  fetchBooks,
+  fetchBooksFail,
+  fetchBooksStart,
+  fetchBooksSuccess
 } from './book';
 
 export {
