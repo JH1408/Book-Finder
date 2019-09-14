@@ -1,6 +1,8 @@
 body {
   font-family: 'Helvetica', 'Arial', sans-serif;
-  background-color: rgb(174, 228, 233);
+  font-size: 16px;
+  background-color: rgb(247, 236, 242);
+  color: rgb(76, 67, 78);
   margin: 0;
   padding: 0;
   box-sizing: border-box;

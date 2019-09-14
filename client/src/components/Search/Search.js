@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import * as actions from '../../store/actions/index';
-import axios from 'axios';
+import classes from './Search.module.css';
 
 const Search = (props) => {
   const [inputValue, setInputValue] = useState('');
@@ -17,24 +17,11 @@ const Search = (props) => {
     setInputValue(event.target.value);
   }
 
-  // const searchHandler = (event) => {
-  //   event.preventDefault();
-  //   const searchQuery = inputValue.replace(/\s/g, '+')
-  //
-  //   axios.get(`http://localhost:3001/books/search/${searchQuery}`)
-  //   .then(response => {
-  //     console.log(response);
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   })
-  // }
-
   return (
     <React.Fragment>
-      <form>
-        <input type="search" name="search" onChange={(event) => inputChangedHandler(event)} value={inputValue}/>
-        <button onClick={(event) => searchBooks(event)}>Search</button>
+      <form className={classes.SearchForm}>
+        <input className={classes.SearchInput} type="search" name="search" onChange={(event) => inputChangedHandler(event)} value={inputValue}/>
+        <button className={classes.SearchButton} onClick={(event) => searchBooks(event)}>Search</button>
       </form>
     </React.Fragment>
   )
