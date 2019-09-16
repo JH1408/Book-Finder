@@ -14,12 +14,20 @@ const SavedBooks = (props) => {
     return state.book.loading;
   });
 
+  const isAuth = useSelector(state => {
+    return state.auth.token !== null
+  });
+
   const dispatch = useDispatch();
 
   useEffect(()=> {
-    const token = localStorage.getItem('token');
-    const userId = localStorage.getItem('userId');
-    dispatch(actions.fetchBooks(token, userId))
+    if(isAuth) {
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+      dispatch(actions.fetchBooks(token, userId))
+    } else {
+      props.unauthenticated();
+    }
   }, [dispatch])
 
   const removeBooksHandler = (event, bookId) => {

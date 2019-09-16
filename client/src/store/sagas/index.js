@@ -5,6 +5,8 @@ import {fetchBooksSaga} from './book';
 import {saveBooksSaga} from './book';
 import {removeBooksSaga} from './book';
 import {authUserSaga} from './auth';
+import {authCheckStateSaga} from './auth';
+import {logoutSaga} from './auth';
 
 
 export function* watchBook() {
@@ -16,4 +18,6 @@ export function* watchBook() {
 
 export function* watchAuth() {
   yield takeEvery(actionTypes.AUTH_USER, authUserSaga);
+  yield takeEvery(actionTypes.AUTH_CHECK_STATE, authCheckStateSaga);
+  yield takeEvery(actionTypes.AUTH_INITIATE_LOGOUT, logoutSaga);
 }

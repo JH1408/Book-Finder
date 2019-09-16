@@ -30,7 +30,11 @@
   font-weight: 500;
 }
 
-.Info button {
+.Info a {
+  text-decoration: none;
+}
+
+.Info a button {
   -moz-box-shadow: 0px 10px 14px -7px #fbafe3;
 	-webkit-box-shadow: 0px 10px 14px -7px #fbafe3;
 	box-shadow: 0px 10px 14px -7px #fbafe3;
@@ -54,8 +58,10 @@
   padding: 8px 16px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #c70067;
+  display: block;
+  margin-bottom: 20px;
 }
-.Info button:hover {
+.Info a button:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #d10873), color-stop(1, #ff5c92));
 	background:-moz-linear-gradient(top, #d10873 5%, #ff5c92 100%);
 	background:-webkit-linear-gradient(top, #d10873 5%, #ff5c92 100%);
@@ -63,6 +69,37 @@
 	background:-ms-linear-gradient(top, #d10873 5%, #ff5c92 100%);
 	background:linear-gradient(to bottom, #d10873 5%, #ff5c92 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d10873', endColorstr='#ff5c92',GradientType=0);
+	background-color:#d10873;
+}
+.Info a button:active {
+	position:relative;
+	top:1px;
+}
+
+.Info button {
+  -moz-box-shadow: 0px 10px 14px -7px #fbafe3;
+	-webkit-box-shadow: 0px 10px 14px -7px #fbafe3;
+	box-shadow: 0px 10px 14px -7px #fbafe3;
+	background-color:transparent;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	border-radius:8px;
+  border: 3px solid #d10873;
+	display:inline-block;
+	cursor:pointer;
+	color:#d10873;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 6px 10px;
+	text-decoration:none;
+  width: auto;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  font-size: 0.8rem;
+}
+
+.Info button:hover {
+  color: white;
 	background-color:#d10873;
 }
 .Info button:active {

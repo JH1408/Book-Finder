@@ -14,14 +14,22 @@ const BookList = (props) => {
     return state.book.loading;
   });
 
+  const isAuth = useSelector(state => {
+    return state.auth.token !== null
+  });
+
   const dispatch = useDispatch();
 
 
   const saveBooksHandler = (event, title, author, img, link) => {
-    event.preventDefault();
-    const owner = localStorage.getItem('userId');
-    const token = localStorage.getItem('token');
-    dispatch(actions.saveBooks(title, author, img, link, owner, token))
+    if(isAuth) {
+      event.preventDefault();
+      const token = localStorage.getItem('token');
+      const owner = localStorage.getItem('userId');
+      dispatch(actions.saveBooks(title, author, img, link, owner, token))
+    } else {
+      props.unauthenticated();
+    }
   }
 
   let bookList = <Spinner />;

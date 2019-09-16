@@ -4,14 +4,8 @@ import * as actions from '../actions/index';
 
 export function* logoutSaga(action) {
   yield call([localStorage, 'removeItem'], 'token');
-  yield call([localStorage, 'removeItem'], 'expirationDate');
   yield call([localStorage, 'removeItem'], 'userId');
   yield put(actions.logoutSucceed());
-}
-
-export function* checkAuthTimeoutSaga(action) {
-  yield delay(action.expirationTime * 1000);
-  yield put(actions.logout());
 }
 
 export function* authUserSaga(action) {
@@ -34,5 +28,15 @@ export function* authUserSaga(action) {
     yield put(actions.authSuccess(response.data[1], response.data[0]._id));
   } catch(err) {
     yield put(actions.authFail(err));
+  }
+}
+
+export function* authCheckStateSaga(action) {
+  const token = yield localStorage.getItem('token');
+  if (!token) {
+    yield put(actions.logout());
+  } else {
+    const userId = localStorage.getItem('userId');
+    yield put(actions.authSuccess(token, userId));
   }
 }

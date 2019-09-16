@@ -33,13 +33,6 @@ export const logoutSucceed = () => {
   };
 };
 
-export const checkAuthTimeout = (expirationTime) => {
-  return {
-    type: actionTypes.AUTH_CHECK_TIMEOUT,
-    expirationTime: expirationTime
-  };
-};
-
 export const auth = (email, password, isSignedUp) => {
   return {
     type: actionTypes.AUTH_USER,
@@ -48,13 +41,6 @@ export const auth = (email, password, isSignedUp) => {
     isSignedUp: isSignedUp
   };
 };
-
-// export const setAuthRedirectPath = (path) => {
-//   return {
-//       type: actionTypes.SET_AUTH_REDIRECT_PATH,
-//       path: path
-//   };
-// };
 
 export const authCheckState = () => {
   return {

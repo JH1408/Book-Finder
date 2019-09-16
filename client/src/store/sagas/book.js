@@ -58,7 +58,7 @@ export function* removeBooksSaga(action) {
   try {
     yield axios.delete(`http://localhost:3001/books/${action.owner}/${action.token}/${action.bookId}`);
     yield put(actions.removeBooksSuccess());
-    yield put(actions.fetchBooks(action.token, action.owner))
+    yield put(actions.fetchBooks(action.token, action.owner));
   } catch (e) {
     yield put(actions.removeBooksFail(e));
   }

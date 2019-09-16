@@ -43,7 +43,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatch(actions.auth(emailValue, passwordValue, isSignedUp))
+    dispatch(actions.auth(emailValue, passwordValue, isSignedUp));
   }
 
   const emailChangedHandler = (event) => {
