@@ -12,6 +12,7 @@ router.post('/users', async (req, res) => {
     email: req.body.email,
     password: req.body.password
   });
+  console.log(req.body);
   try {
     await user.save();
     const token = await user.generateAuthToken();
@@ -19,6 +20,7 @@ router.post('/users', async (req, res) => {
     const data = [user, token];
     res.send(data);
   } catch (err) {
+    console.log(err);
     res.status(400).send('An account with that email address already exists.');
   }
 });
@@ -28,8 +30,10 @@ router.post('/users/login', urlencodedParser, async (req, res) => {
     const user = await User.findByCredentials(req.body.email, req.body.password);
     const token = await user.generateAuthToken();
     res.cookie('auth_token', token);
-    res.send(user);
+    const data = [user, token];
+    res.send(data);
   } catch(err) {
+    console.log(err);
     res.status(400).send('Incorrect username or password.');
   }
 });

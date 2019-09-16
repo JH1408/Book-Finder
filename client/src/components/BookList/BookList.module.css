@@ -13,6 +13,7 @@
   margin: 40px auto;
   display: flex;
   flex-direction: row;
+  background-color: rgb(250, 245, 247);
 }
 
 .Card img {

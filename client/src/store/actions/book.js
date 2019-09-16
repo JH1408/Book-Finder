@@ -27,11 +27,10 @@ export const searchBooks = (inputValue) => {
   };
 };
 
-export const fetchBooks = (token, userId) => {
+export const fetchBooks = (token) => {
   return {
     type: actionTypes.FETCH_BOOKS,
-    token: token,
-    userId: userId
+    token: token
   };
 };
 
@@ -52,5 +51,35 @@ export const fetchBooksFail = (error) => {
 export const fetchBooksStart = () => {
   return {
     type: actionTypes.FETCH_BOOKS_START
+  };
+};
+
+export const saveBooks = (title, author, img, owner, token) => {
+  return {
+    type: actionTypes.SAVE_BOOKS,
+    title: title,
+    author: author,
+    img: img,
+    owner: owner,
+    token: token
+  };
+};
+
+export const saveBooksSuccess = () => {
+  return {
+    type: actionTypes.SAVE_BOOKS_SUCCESS,
+  };
+};
+
+export const saveBooksFail = (error) => {
+  return {
+    type: actionTypes.SAVE_BOOKS_FAIL,
+    error: error
+  };
+};
+
+export const saveBooksStart = () => {
+  return {
+    type: actionTypes.SAVE_BOOKS_START
   };
 };

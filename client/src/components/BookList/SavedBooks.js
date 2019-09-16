@@ -25,8 +25,9 @@ const SavedBooks = (props) => {
   const dispatch = useDispatch();
 
   useEffect(()=> {
-    dispatch(actions.fetchBooks(token, userId))
-  }, [token, userId, dispatch])
+    const token = localStorage.getItem('token');
+    dispatch(actions.fetchBooks(token))
+  }, [token, dispatch])
 
   let bookList = <Spinner />;
   if (!loading) {

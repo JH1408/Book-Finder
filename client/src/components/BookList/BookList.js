@@ -1,7 +1,8 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import classes from './BookList.module.css'
+import classes from './BookList.module.css';
+import * as actions from '../../store/actions/index';
 
 const BookList = (props) => {
 
@@ -12,7 +13,18 @@ const BookList = (props) => {
   const loading = useSelector(state => {
     return state.book.loading;
   });
-    let bookList = <Spinner />;
+
+  const dispatch = useDispatch();
+
+
+  const saveBooksHandler = (event, title, author, img) => {
+    event.preventDefault();
+    const owner = localStorage.getItem('userId');
+    const token = localStorage.getItem('token');
+    dispatch(actions.saveBooks(title, author, img, owner, token))
+  }
+
+  let bookList = <Spinner />;
   if (!loading) {
     if(books.length >= 1){
       bookList = books.map(book => {
@@ -27,7 +39,8 @@ const BookList = (props) => {
                 <h2>{book.volumeInfo.title}</h2>
                 <p>{book.volumeInfo.authors}</p>
                 <a href={book.volumeInfo.previewLink} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
-              </div>
+                <button onClick={(event) => saveBooksHandler(event, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.previewLink)}>Add to Favorites</button>
+            </div>
             </div>
           )
         })

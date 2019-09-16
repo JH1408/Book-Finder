@@ -20,20 +20,23 @@ router.get('/books/search/:query', async (req, res) => {
     res.status(400).send(err);
   }
 });
-
 router.post('/books', auth, async (req, res) => {
   const book = new Book({
-    author: req.user._id
+    owner: req.user._id,
+    author: req.body.author.toString(),
+    title: req.body.title,
+    img: req.body.img
   });
   try {
     await book.save();
-    res.status(201);
+    res.status(201).send();
   } catch (err) {
     res.status(400).send(err);
+    console.log(err);
   }
 });
 
- router.get('/books', auth, async (req, res) => {
+ router.get('/books/:token', auth, async (req, res) => {
      try {
        res.send(req.user.books);
      } catch(err) {

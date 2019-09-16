@@ -19,12 +19,28 @@ export function* searchBooksSaga(action) {
   }
 }
 
+export function* saveBooksSaga(action) {
+  yield put(actions.saveBooksStart());
+  const bookData = {
+    title: action.title,
+    author: action.author,
+    img: action.img,
+    owner: action.owner,
+    token: action.token
+  };
+  try {
+    yield axios.post(`http://localhost:3001/books`, bookData);
+    yield put(actions.saveBooksSuccess());
+  } catch (e) {
+    yield put(actions.saveBooksFail(e));
+  }
+}
+
 export function* fetchBooksSaga(action) {
   yield put(actions.fetchBooksStart());
   try {
-    const response = yield axios.get(`http://localhost:3001/books`);
+    const response = yield axios.post(`http://localhost:3001/books/${action.token}`, );
     const books = [];
-    console.log(response);
     for (let key in response) {
       books.push({
         ...response[key],

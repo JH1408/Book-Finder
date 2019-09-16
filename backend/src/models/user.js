@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('books', {
   ref: 'Book',
   localField: '_id',
-  foreignField: 'author'
+  foreignField: 'owner'
 });
 
 // Create new method for instance

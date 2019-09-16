@@ -3,16 +3,20 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const bookSchema = new mongoose.Schema({
-  description: {
+  title: {
     type: String,
     trim: true,
-    required: true
-  },
-  completed: {
-    type: Boolean,
-    default: false
+    required: true,
+    unique: true
   },
   author: {
+    type: String,
+    trim: true,
+  },
+  img: {
+    type: String
+  },
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User'

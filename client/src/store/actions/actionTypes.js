@@ -8,6 +8,11 @@ export const FETCH_BOOKS_SUCCESS = 'FETCH_BOOKS_SUCCESS';
 export const FETCH_BOOKS_FAIL = 'FETCH_BOOKS_FAIL';
 export const FETCH_BOOKS = 'FETCH_BOOKS';
 
+export const SAVE_BOOKS_START = 'SAVE_BOOKS_START';
+export const SAVE_BOOKS_SUCCESS = 'SAVE_BOOKS_SUCCESS';
+export const SAVE_BOOKS_FAIL = 'SAVE_BOOKS_FAIL';
+export const SAVE_BOOKS = 'SAVE_BOOKS';
+
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';

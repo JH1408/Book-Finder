@@ -6,8 +6,8 @@ require('./db/mongoose');
 const User = require('./models/user');
 const Book = require('./models/book');
 const auth = require('./middleware/auth');
-const userRouter = require('./routers/user-router');
-const bookRouter = require('./routers/book-router');
+const userRouter = require('./routers/user');
+const bookRouter = require('./routers/book');
 
 const app = express();
 

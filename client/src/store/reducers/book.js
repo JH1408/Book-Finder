@@ -37,6 +37,18 @@ const fetchBooksFail = (state, action) => {
   return updateObject(state, {loading: false});
 };
 
+const saveBooksStart = (state, action) => {
+    return updateObject(state, {loading: true});
+};
+
+const saveBooksSuccess = (state, action) => {
+  return updateObject(state, {loading: false});
+};
+
+const saveBooksFail = (state, action) => {
+  return updateObject(state, {loading: false});
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SEARCH_BOOKS_START: return searchBooksStart(state, action);
@@ -45,6 +57,9 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_BOOKS_START: return fetchBooksStart(state, action);
     case actionTypes.FETCH_BOOKS_SUCCESS: return fetchBooksSuccess(state, action);
     case actionTypes.FETCH_BOOKS_FAIL: return fetchBooksFail(state, action);
+    case actionTypes.SAVE_BOOKS_START: return saveBooksStart(state, action);
+    case actionTypes.SAVE_BOOKS_SUCCESS: return saveBooksSuccess(state, action);
+    case actionTypes.SAVE_BOOKS_FAIL: return saveBooksFail(state, action);
     default: return state;
   }
 };
