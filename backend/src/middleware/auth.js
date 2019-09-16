@@ -6,7 +6,7 @@ const User = require('../models/user');
 const auth = async (req, res, next) => {
   try {
     let token = '';
-    if(req.params) {
+    if(req.params.token) {
       token = req.params.token;
     } else {
       token = req.body.token;
@@ -21,7 +21,7 @@ const auth = async (req, res, next) => {
     req.token = token;
     next();
   } catch(err) {
-    res.status(401).redirect('/users/register');
+    res.status(401).send();
   }
 };
 

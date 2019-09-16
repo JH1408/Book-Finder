@@ -22,31 +22,32 @@ router.get('/books/search/:query', async (req, res) => {
 });
 router.post('/books', auth, async (req, res) => {
   const book = new Book({
-    owner: req.user._id,
+    owner: req.body.owner,
     author: req.body.author.toString(),
     title: req.body.title,
-    img: req.body.img
+    img: req.body.img,
+    link: req.body.link
   });
   try {
     await book.save();
     res.status(201).send();
   } catch (err) {
     res.status(400).send(err);
-    console.log(err);
   }
 });
 
- router.get('/books/:token', auth, async (req, res) => {
+ router.get('/books/:userId/:token', auth, async (req, res) => {
      try {
-       res.send(req.user.books);
+       const books = await Book.find({owner: req.params.userId});
+       res.send(books);
      } catch(err) {
        res.status(500).send();
      }
  });
 
-router.delete('/books/:id', auth, async (req, res) => {
+router.delete('/books/:owner/:token/:id', auth, async (req, res) => {
   try {
-    const book = await Book.findOneAndDelete({_id: req.params.id, author: req.user._id});
+    const book = await Book.findOneAndDelete({_id: req.params.id, owner: req.params.owner});
     if(!book) {
       return res.status(404).send();
     }
@@ -61,6 +62,7 @@ router.delete('/books', auth, async (req, res) => {
     const book = await Book.deleteMany({author: req.user._id});
     res.send();
   } catch(err) {
+    console.log(err);
     res.status(500).send();
   }
 });

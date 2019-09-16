@@ -14,40 +14,41 @@ const SavedBooks = (props) => {
     return state.book.loading;
   });
 
-  const token = useSelector(state => {
-    return state.book.token;
-  });
-
-  const userId = useSelector(state => {
-    return state.book.userId;
-  });
-
   const dispatch = useDispatch();
 
   useEffect(()=> {
     const token = localStorage.getItem('token');
-    dispatch(actions.fetchBooks(token))
-  }, [token, dispatch])
+    const userId = localStorage.getItem('userId');
+    dispatch(actions.fetchBooks(token, userId))
+  }, [dispatch])
+
+  const removeBooksHandler = (event, bookId) => {
+    event.preventDefault();
+    const token = localStorage.getItem('token');
+    const userId = localStorage.getItem('userId');
+    dispatch(actions.removeBooks(bookId, token, userId));
+  }
 
   let bookList = <Spinner />;
   if (!loading) {
     if(books.length >= 1){
       bookList = books.map(book => {
         let img = null
-        if (typeof book.volumeInfo.imageLinks !== 'undefined') {
-          img = <img src={book.volumeInfo.imageLinks.thumbnail} alt=""/>
+        if (typeof book.img !== 'undefined') {
+          img = <img src={book.img} alt=""/>
         }
         return (
             <div className={classes.Card} key={book.id}>
               {img}
               <div className={classes.Info}>
-                <h2>{book.volumeInfo.title}</h2>
-                <p>{book.volumeInfo.authors}</p>
-                <a href={book.volumeInfo.previewLink} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
+                <h2>{book.title}</h2>
+                <p>{book.author}</p>
+                <a href={book.link} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
+                <button onClick={(event) => removeBooksHandler(event, book._id)}>Remove Book</button>
               </div>
             </div>
-          )
-        })
+         )
+       })
     } else {
       bookList = <h2 className={classes.start}>You don't have any saved books yet.</h2>
     }

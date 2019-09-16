@@ -16,6 +16,9 @@ const bookSchema = new mongoose.Schema({
   img: {
     type: String
   },
+  link: {
+    type: String
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,

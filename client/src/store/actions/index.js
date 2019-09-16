@@ -11,7 +11,11 @@ export {
   saveBooks,
   saveBooksFail,
   saveBooksStart,
-  saveBooksSuccess
+  saveBooksSuccess,
+  removeBooks,
+  removeBooksFail,
+  removeBooksStart,
+  removeBooksSuccess
 } from './book';
 
 export {

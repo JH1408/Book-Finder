@@ -17,11 +17,11 @@ const BookList = (props) => {
   const dispatch = useDispatch();
 
 
-  const saveBooksHandler = (event, title, author, img) => {
+  const saveBooksHandler = (event, title, author, img, link) => {
     event.preventDefault();
     const owner = localStorage.getItem('userId');
     const token = localStorage.getItem('token');
-    dispatch(actions.saveBooks(title, author, img, owner, token))
+    dispatch(actions.saveBooks(title, author, img, link, owner, token))
   }
 
   let bookList = <Spinner />;
@@ -39,7 +39,7 @@ const BookList = (props) => {
                 <h2>{book.volumeInfo.title}</h2>
                 <p>{book.volumeInfo.authors}</p>
                 <a href={book.volumeInfo.previewLink} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
-                <button onClick={(event) => saveBooksHandler(event, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.previewLink)}>Add to Favorites</button>
+                <button onClick={(event) => saveBooksHandler(event, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.previewLink)}>Save Book</button>
             </div>
             </div>
           )

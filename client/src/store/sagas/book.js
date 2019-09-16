@@ -25,6 +25,7 @@ export function* saveBooksSaga(action) {
     title: action.title,
     author: action.author,
     img: action.img,
+    link: action.link,
     owner: action.owner,
     token: action.token
   };
@@ -39,15 +40,26 @@ export function* saveBooksSaga(action) {
 export function* fetchBooksSaga(action) {
   yield put(actions.fetchBooksStart());
   try {
-    const response = yield axios.post(`http://localhost:3001/books/${action.token}`, );
+    const response = yield axios.get(`http://localhost:3001/books/${action.userId}/${action.token}`, );
     const books = [];
-    for (let key in response) {
+    for (let key in response.data) {
       books.push({
-        ...response[key],
+        ...response.data[key],
         id: key});
       }
     yield put(actions.fetchBooksSuccess(books));
   } catch (e) {
     yield put(actions.fetchBooksFail(e));
+  }
+}
+
+export function* removeBooksSaga(action) {
+  yield put(actions.removeBooksStart());
+  try {
+    yield axios.delete(`http://localhost:3001/books/${action.owner}/${action.token}/${action.bookId}`);
+    yield put(actions.removeBooksSuccess());
+    yield put(actions.fetchBooks(action.token, action.owner))
+  } catch (e) {
+    yield put(actions.removeBooksFail(e));
   }
 }

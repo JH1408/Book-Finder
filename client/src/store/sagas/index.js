@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 import {searchBooksSaga} from './book';
 import {fetchBooksSaga} from './book';
 import {saveBooksSaga} from './book';
+import {removeBooksSaga} from './book';
 import {authUserSaga} from './auth';
 
 
@@ -10,6 +11,7 @@ export function* watchBook() {
   yield takeEvery(actionTypes.SEARCH_BOOKS, searchBooksSaga);
   yield takeEvery(actionTypes.FETCH_BOOKS, fetchBooksSaga);
   yield takeEvery(actionTypes.SAVE_BOOKS, saveBooksSaga);
+  yield takeEvery(actionTypes.REMOVE_BOOKS, removeBooksSaga);
 }
 
 export function* watchAuth() {
