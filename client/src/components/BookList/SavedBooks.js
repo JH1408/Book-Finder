@@ -20,15 +20,17 @@ const SavedBooks = (props) => {
 
   const dispatch = useDispatch();
 
+  const {unauthenticated} = props;
+
   useEffect(()=> {
     if(isAuth) {
       const userId = localStorage.getItem('userId');
       const token = localStorage.getItem('token');
       dispatch(actions.fetchBooks(token, userId))
     } else {
-      props.unauthenticated();
+      unauthenticated();
     }
-  }, [dispatch])
+  }, [dispatch, isAuth, unauthenticated])
 
   const removeBooksHandler = (event, bookId) => {
     event.preventDefault();
@@ -39,18 +41,28 @@ const SavedBooks = (props) => {
 
   let bookList = <Spinner />;
   if (!loading) {
-    if(books.length >= 1){
+    if(books){
       bookList = books.map(book => {
         let img = null
-        if (typeof book.img !== 'undefined') {
+        if (book.img !== null) {
           img = <img src={book.img} alt=""/>
+        }
+        let author = null;
+        if (book.author !== null) {
+          if(book.author.length > 70) {
+            author =  `${book.author.split(',').join(', ').substring(0, 70)}...`;
+          } else if (book.author.indexOf(',') !== -1) {
+            author = book.author.split(',').join(', ');
+          } else {
+            author = book.author
+          }
         }
         return (
             <div className={classes.Card} key={book.id}>
               {img}
               <div className={classes.Info}>
                 <h2>{book.title}</h2>
-                <p>{book.author.split(',').join(', ').length > 70 ? `${book.author.split(',').join(', ').substring(0, 70)}...` : book.author.split(',').join(', ')}</p>
+                <p>{author}</p>
                 <a href={book.link} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
                 <button onClick={(event) => removeBooksHandler(event, book._id)}>Remove Book</button>
               </div>

@@ -5,7 +5,8 @@ const initialState = {
   books: [],
   loading: false,
   savedBooks: [],
-  search: false
+  search: false,
+  error: false
 };
 
 const searchBooksStart = (state, action) => {
@@ -21,41 +22,59 @@ const searchBooksSuccess = (state, action) => {
 };
 
 const searchBooksFail = (state, action) => {
-  return updateObject(state, {loading: false});
+  return updateObject(state, {
+    loading: false,
+    error: true
+  });
 };
 
 const fetchBooksStart = (state, action) => {
-    return updateObject(state, {loading: true});
+    return updateObject(state, {
+      loading: true,
+      error: false
+    });
 };
 
 const fetchBooksSuccess = (state, action) => {
   return updateObject(state, {
-    savedBooks: action.books,
+    savedBooks: action.savedBooks,
     loading: false
   });
 };
 
 const fetchBooksFail = (state, action) => {
-  return updateObject(state, {loading: false});
+  return updateObject(state, {
+    loading: false,
+    error: true
+  });
 };
 
 const saveBooksStart = (state, action) => {
-    return updateObject(state, {loading: true});
+    return updateObject(state, {
+      loading: true,
+      error: false,
+    });
 };
 
 const saveBooksSuccess = (state, action) => {
   return updateObject(state, {
     loading: false,
-    savedBooks: action.books
+    savedBooks: action.savedBooks
   });
 };
 
 const saveBooksFail = (state, action) => {
-  return updateObject(state, {loading: false});
+  return updateObject(state, {
+    loading: false,
+    error: true
+  });
 };
 
 const removeBooksStart = (state, action) => {
-    return updateObject(state, {loading: true});
+    return updateObject(state, {
+      loading: true,
+      error: false,
+    });
 };
 
 const removeBooksSuccess = (state, action) => {
@@ -63,7 +82,10 @@ const removeBooksSuccess = (state, action) => {
 };
 
 const removeBooksFail = (state, action) => {
-  return updateObject(state, {loading: false});
+  return updateObject(state, {
+    loading: false,
+    error: true
+  });
 };
 
 const reducer = (state = initialState, action) => {

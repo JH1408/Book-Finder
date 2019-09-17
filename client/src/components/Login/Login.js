@@ -4,12 +4,31 @@ import Backdrop from '../UI/Backdrop/Backdrop';
 import Spinner from '../UI/Spinner/Spinner';
 import classes from './Login.module.css';
 import * as actions from '../../store/actions/index';
+import {checkValidity, updateObject} from '../../utils/utility';
 
 const Login = (props) => {
 
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
+  const [email, setEmail] = useState({
+    value: '',
+    validation: {
+      required: true,
+      isEmail: true
+    },
+    emailIsValid: false
+  });
+
+  const [password, setPassword] = useState({
+    value: '',
+    validation: {
+      required: true,
+      minLength: 7,
+    },
+    passwordIsValid: false
+  });
+
   const [isSignedUp, setIsSignedUp] = useState(false);
+
+  const [isValid, setIsValid] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -31,9 +50,9 @@ const Login = (props) => {
       <React.Fragment>
         <form>
           <label>Email Address</label>
-          <input type="email" placeholder="Email Address" name="email" onChange={(event) => emailChangedHandler(event)} value={emailValue} required/>
+          <input type="email" placeholder="Email Address" name="email" onChange={(event) => emailChangedHandler(event)} value={email.value} required/>
           <label>Password</label>
-          <input type="password"  placeholder="Password" name="password" onChange={(event) => passwordChangedHandler(event)} value={passwordValue} required/>
+          <input type="password"  placeholder="Password" name="password" onChange={(event) => passwordChangedHandler(event)} value={password.value} required/>
           <button onClick={(event) => submitHandler(event)}>{isSignedUp ? 'Sign In' : 'Sign Up'}</button>
         </form>
         <p>Already have an account?<span> </span>
@@ -47,14 +66,26 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    dispatch(actions.auth(emailValue, passwordValue, isSignedUp));
+    if(email.isValid && password.isValid) {
+      dispatch(actions.auth(email.value, password.value, isSignedUp));
+    } else {
+      setIsValid(false)
+    }
   }
 
   const emailChangedHandler = (event) => {
-    setEmailValue(event.target.value);
+    const updatedEmail = updateObject(email, {
+      value: event.target.value,
+      valid: checkValidity(event.target.value, email.validation),
+    });
+    setEmail(updatedEmail);
   }
   const passwordChangedHandler = (event) => {
-    setPasswordValue(event.target.value);
+    const updatedPassword = updateObject(password, {
+      value: event.target.value,
+      valid: checkValidity(event.target.value, password.validation),
+    });
+    setPassword(updatedPassword);
   }
 
   let message = null;
@@ -65,6 +96,10 @@ const Login = (props) => {
   } else if(error) {
     message = (
       <p className={classes.errorMessage}>Sorry, something went wrong. Please try again.</p>
+    )
+  } else if (!isValid) {
+    message = (
+        <p className={classes.errorMessage}>Please enter a valid email address and a valid password. <br/> Passwords must consist of minimum 7 characters.</p>
     )
   }
 

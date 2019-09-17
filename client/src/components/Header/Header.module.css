@@ -50,3 +50,9 @@
   display: inline-block;
   margin-right: 20px;
 }
+
+.Error {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #d10873;
+}

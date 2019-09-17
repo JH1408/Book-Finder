@@ -24,7 +24,7 @@ router.get('/books/search/:query', async (req, res) => {
 router.post('/books', auth, async (req, res) => {
   const book = new Book({
     owner: req.body.owner,
-    author: req.body.author.toString(),
+    author: req.body.author ? req.body.author.toString() : '',
     title: req.body.title,
     img: req.body.img,
     link: req.body.link

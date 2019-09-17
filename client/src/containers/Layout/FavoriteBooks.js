@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import Header from '../../components/Header/Header';
 import SavedBooks from '../../components/BookList/SavedBooks';
 import Login from '../../components/Login/Login';
@@ -42,4 +43,4 @@ const Layout = (props) => {
   )
 }
 
-export default Layout;
+export default withRouter(Layout);

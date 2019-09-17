@@ -47,7 +47,7 @@ const BookList = (props) => {
         let author = null;
         if (book.volumeInfo.authors) {
           if(book.volumeInfo.authors.length > 70) {
-            author =  `${book.volumeInfo.authors.join(', ').substring(0, 70)}...`
+            author =  `${book.volumeInfo.authors.split(',').join(', ').substring(0, 70)}...`
           } else {
             author = book.volumeInfo.authors.join(', ')
           }
@@ -59,7 +59,12 @@ const BookList = (props) => {
                 <h2>{book.volumeInfo.title}</h2>
                 <p>{author}</p>
                 <a href={book.volumeInfo.previewLink} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
-                <button onClick={(event) => saveBooksHandler(event, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.previewLink)}>Save Book</button>
+                <button onClick={(event) =>
+                    saveBooksHandler(event,
+                                      book.volumeInfo.title, book.volumeInfo.authors,
+                                      typeof book.volumeInfo.imageLinks !== 'undefined' ? book.volumeInfo.imageLinks.thumbnail : null,
+                                      book.volumeInfo.previewLink)}
+                  >Save Book</button>
             </div>
             </div>
           )

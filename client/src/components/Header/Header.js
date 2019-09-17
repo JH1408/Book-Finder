@@ -18,6 +18,10 @@ const Header = (props) => {
     return state.auth.logoutSuccess
   });
 
+  const error = useSelector(state => {
+    return state.book.error
+  });
+
   useEffect(() => {
     if(message) {
       setIsVisible(true);
@@ -33,6 +37,13 @@ const Header = (props) => {
     }, 1000);
   }
 
+  let errorMessage = null;
+  if(error) {
+    errorMessage = (
+      <p className={classes.Error}>Something went wrong. Please try again.</p>
+    )
+  }
+
   return (
     <React.Fragment>
       <nav className={classes.Nav}>
@@ -46,6 +57,7 @@ const Header = (props) => {
         </div>
       </nav>
       <h1 className={classes.Header}>Book Finder</h1>
+      {errorMessage}
     </React.Fragment>
   )
 }

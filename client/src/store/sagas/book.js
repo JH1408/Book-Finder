@@ -30,8 +30,11 @@ export function* saveBooksSaga(action) {
     token: action.token
   };
   try {
-    yield axios.post(`http://localhost:3001/books`, bookData);
-    yield put(actions.saveBooksSuccess());
+    const res = yield axios.post(`http://localhost:3001/books`, bookData);
+    const savedBooks = [];
+    const response = yield JSON.parse(res.config.data);
+    savedBooks.push({...response});
+    yield put(actions.saveBooksSuccess(savedBooks));
   } catch (e) {
     yield put(actions.saveBooksFail(e));
   }

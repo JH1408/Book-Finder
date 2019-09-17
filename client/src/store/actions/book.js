@@ -35,10 +35,10 @@ export const fetchBooks = (token, userId) => {
   };
 };
 
-export const fetchBooksSuccess = (books) => {
+export const fetchBooksSuccess = (savedBooks) => {
   return {
     type: actionTypes.FETCH_BOOKS_SUCCESS,
-    books: books
+    savedBooks: savedBooks
   };
 };
 
@@ -67,9 +67,10 @@ export const saveBooks = (title, author, img, link, owner, token) => {
   };
 };
 
-export const saveBooksSuccess = () => {
+export const saveBooksSuccess = (savedBooks) => {
   return {
     type: actionTypes.SAVE_BOOKS_SUCCESS,
+    savedBooks: savedBooks
   };
 };
 
