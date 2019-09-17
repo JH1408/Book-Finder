@@ -33,7 +33,6 @@ router.post('/users/login', urlencodedParser, async (req, res) => {
     const data = [user, token];
     res.send(data);
   } catch(err) {
-    console.log(err);
     res.status(400).send('Incorrect username or password.');
   }
 });
@@ -51,15 +50,5 @@ router.post('/users/logout', auth, async (req, res) => {
   }
 });
 
-router.delete('/users/me', auth, async (req, res) => {
-  try {
-    sendGoodbyeEmail(req.user.email, req.user.name);
-    await req.user.remove();
-    res.clearCookie('auth_token');
-    res.send();
-  } catch(err) {
-    res.status(500).send();
-  }
-});
 
 module.exports = router;

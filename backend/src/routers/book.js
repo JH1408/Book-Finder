@@ -20,6 +20,7 @@ router.get('/books/search/:query', async (req, res) => {
     res.status(400).send(err);
   }
 });
+
 router.post('/books', auth, async (req, res) => {
   const book = new Book({
     owner: req.body.owner,
@@ -53,16 +54,6 @@ router.delete('/books/:owner/:token/:id', auth, async (req, res) => {
     }
     res.send(book);
   } catch(err) {
-    res.status(500).send();
-  }
-});
-
-router.delete('/books', auth, async (req, res) => {
-  try {
-    const book = await Book.deleteMany({author: req.user._id});
-    res.send();
-  } catch(err) {
-    console.log(err);
     res.status(500).send();
   }
 });

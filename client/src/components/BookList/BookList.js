@@ -44,12 +44,20 @@ const BookList = (props) => {
         if (typeof book.volumeInfo.imageLinks !== 'undefined') {
           img = <img src={book.volumeInfo.imageLinks.thumbnail} alt=""/>
         }
+        let author = null;
+        if (book.volumeInfo.authors) {
+          if(book.volumeInfo.authors.length > 70) {
+            author =  `${book.volumeInfo.authors.join(', ').substring(0, 70)}...`
+          } else {
+            author = book.volumeInfo.authors.join(', ')
+          }
+        }
         return (
             <div className={classes.Card} key={book.id}>
               {img}
               <div className={classes.Info}>
                 <h2>{book.volumeInfo.title}</h2>
-                <p>{book.volumeInfo.authors.join(', ').length > 70 ? `${book.volumeInfo.authors.join(', ').substring(0, 70)}...` : book.volumeInfo.authors.join(', ')}</p>
+                <p>{author}</p>
                 <a href={book.volumeInfo.previewLink} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
                 <button onClick={(event) => saveBooksHandler(event, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.previewLink)}>Save Book</button>
             </div>

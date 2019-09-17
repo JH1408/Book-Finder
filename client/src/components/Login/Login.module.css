@@ -81,3 +81,8 @@
 	position:relative;
 	top:1px;
 }
+
+.errorMessage {
+  margin-top: -10px;
+  color: #d10873;
+}

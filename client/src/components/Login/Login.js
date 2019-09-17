@@ -17,8 +17,12 @@ const Login = (props) => {
     return state.auth.loading;
   });
 
+  const error = useSelector(state => {
+    return state.auth.error;
+  });
+
   const setIsSignedUpHandler = () => {
-    setIsSignedUp(!isSignedUp)
+    setIsSignedUp(!isSignedUp);
   }
 
   let loginForm = <Spinner />;
@@ -53,6 +57,17 @@ const Login = (props) => {
     setPasswordValue(event.target.value);
   }
 
+  let message = null;
+  if(error & isSignedUp) {
+    message = (
+      <p className={classes.errorMessage}>Incorrect username or password.</p>
+    );
+  } else if(error) {
+    message = (
+      <p className={classes.errorMessage}>Sorry, something went wrong. Please try again.</p>
+    )
+  }
+
   return (
     <React.Fragment>
       <Backdrop show={props.visible} clicked={props.hide}/>
@@ -62,6 +77,7 @@ const Login = (props) => {
           opacity: props.visible ? '1' : '0'
         }}>
           <h2>{isSignedUp ? 'Sign In' : 'Sign Up'}</h2>
+          {message}
           {loginForm}
         </div>
     </React.Fragment>
