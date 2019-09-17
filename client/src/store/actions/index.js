@@ -25,5 +25,7 @@ export {
   authFail,
   logout,
   authCheckState,
-  logoutSucceed
+  logoutSucceed,
+  logoutMessage,
+  deleteMessage
 } from './auth';

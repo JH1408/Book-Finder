@@ -5,7 +5,8 @@ const initialState = {
   token: null,
   userId: null,
   error: null,
-  loading: false
+  loading: false,
+  logoutSuccess: false
 };
 
 const authStart = (state, action) => {
@@ -31,7 +32,20 @@ const authFail = (state, action) => {
 const authLogout = (state, action) => {
   return updateObject(state, {
     token: null,
-    userId: null
+    userId: null,
+    logoutSuccess: true
+  });
+};
+
+const logoutMessage = (state, action) => {
+  return updateObject(state, {
+    logoutSuccess: false
+  });
+};
+
+const deleteMessage = (state, action) => {
+  return updateObject(state, {
+    logoutSuccess: false
   });
 };
 
@@ -41,6 +55,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_SUCCESS: return authSuccess(state, action);
     case actionTypes.AUTH_FAIL: return authFail(state, action);
     case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
+    case actionTypes.LOGOUT_MESSAGE: return logoutMessage(state, action);
+    case actionTypes.DELETE_MESSAGE: return deleteMessage(state, action);
     default: return state;
   }
 };

@@ -10,6 +10,10 @@ const BookList = (props) => {
     return state.book.books;
   });
 
+  const search = useSelector(state => {
+    return state.book.search;
+  });
+
   const loading = useSelector(state => {
     return state.book.loading;
   });
@@ -45,7 +49,7 @@ const BookList = (props) => {
               {img}
               <div className={classes.Info}>
                 <h2>{book.volumeInfo.title}</h2>
-                <p>{book.volumeInfo.authors}</p>
+                <p>{book.volumeInfo.authors.join(', ').length > 70 ? `${book.volumeInfo.authors.join(', ').substring(0, 70)}...` : book.volumeInfo.authors.join(', ')}</p>
                 <a href={book.volumeInfo.previewLink} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
                 <button onClick={(event) => saveBooksHandler(event, book.volumeInfo.title, book.volumeInfo.authors, book.volumeInfo.imageLinks.thumbnail, book.volumeInfo.previewLink)}>Save Book</button>
             </div>
@@ -53,7 +57,11 @@ const BookList = (props) => {
           )
         })
     } else {
-      bookList = <h2 className={classes.start}>Start searching for books.</h2>
+      if(search) {
+        bookList = <h2 className={classes.start}>Sorry, no results for your search.</h2>
+      } else {
+        bookList = <h2 className={classes.start}>Start searching for books.</h2>
+      }
     }
   }
 

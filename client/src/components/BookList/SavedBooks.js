@@ -50,7 +50,7 @@ const SavedBooks = (props) => {
               {img}
               <div className={classes.Info}>
                 <h2>{book.title}</h2>
-                <p>{book.author}</p>
+                <p>{book.author.split(',').join(', ').length > 70 ? `${book.author.split(',').join(', ').substring(0, 70)}...` : book.author.split(',').join(', ')}</p>
                 <a href={book.link} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
                 <button onClick={(event) => removeBooksHandler(event, book._id)}>Remove Book</button>
               </div>

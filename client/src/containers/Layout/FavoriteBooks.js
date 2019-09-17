@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Header from '../../components/Header/Header';
-import Search from '../../components/Search/Search';
 import SavedBooks from '../../components/BookList/SavedBooks';
 import Login from '../../components/Login/Login';
 import * as actions from '../../store/actions/index';

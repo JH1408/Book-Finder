@@ -1,0 +1,11 @@
+.Logout {
+  position: absolute;
+  top: 20px;
+  left: 35%;
+  background-color: white;
+  color: #d10873;
+  font-size: 1.2rem;
+  z-index: 500;
+  padding: 20px;
+  border-radius: 3px;
+}

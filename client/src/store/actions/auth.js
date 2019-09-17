@@ -47,3 +47,15 @@ export const authCheckState = () => {
     type: actionTypes.AUTH_CHECK_STATE
   };
 };
+
+export const logoutMessage = () => {
+  return {
+    type: actionTypes.LOGOUT_MESSAGE
+  };
+};
+
+export const deleteMessage = () => {
+  return {
+    type: actionTypes.DELETE_MESSAGE
+  };
+};

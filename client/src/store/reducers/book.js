@@ -4,7 +4,8 @@ import {updateObject} from '../../utils/utility';
 const initialState = {
   books: [],
   loading: false,
-  savedBooks: []
+  savedBooks: [],
+  search: false
 };
 
 const searchBooksStart = (state, action) => {
@@ -14,7 +15,8 @@ const searchBooksStart = (state, action) => {
 const searchBooksSuccess = (state, action) => {
   return updateObject(state, {
     books: action.books,
-    loading: false
+    loading: false,
+    search: true
   });
 };
 
