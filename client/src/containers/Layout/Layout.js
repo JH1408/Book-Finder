@@ -30,7 +30,7 @@ const Homepage = (props) => {
     setVisible(false);
     props.history.replace('/')
   }
-
+4
   useEffect(() => {
     if(isAuth) {
       setVisible(false)
