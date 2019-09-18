@@ -59,3 +59,9 @@ export const deleteMessage = () => {
     type: actionTypes.DELETE_MESSAGE
   };
 };
+
+export const resetError = () => {
+  return {
+    type: actionTypes.RESET_ERROR
+  };
+};

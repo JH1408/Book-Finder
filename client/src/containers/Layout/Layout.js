@@ -19,21 +19,22 @@ const Homepage = (props) => {
 
   const openModalHandler = () => {
     if(isAuth) {
-      dispatch(actions.logout())
+      dispatch(actions.logout());
       props.history.push('/');
     } else {
-      setVisible(true)
+      setVisible(true);
     }
   }
 
   const closeModalHandler = () => {
     setVisible(false);
-    props.history.replace('/')
+    props.history.replace('/');
+    dispatch(actions.resetError());
   }
 
   useEffect(() => {
     if(isAuth) {
-      setVisible(false)
+      setVisible(false);
     }
   }, [isAuth]);
 

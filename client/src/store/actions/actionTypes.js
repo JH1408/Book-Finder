@@ -27,3 +27,4 @@ export const AUTH_USER = 'AUTH_USER';
 export const AUTH_CHECK_STATE = 'AUTH_CHECK_STATE';
 export const LOGOUT_MESSAGE = 'LOGOUT_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
+export const RESET_ERROR = 'RESET_ERROR';

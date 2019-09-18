@@ -49,6 +49,12 @@ const deleteMessage = (state, action) => {
   });
 };
 
+const resetError = (state, action) => {
+  return updateObject(state, {
+    error: null
+  });
+}
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.AUTH_START: return authStart(state, action);
@@ -57,6 +63,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_LOGOUT: return authLogout(state, action);
     case actionTypes.LOGOUT_MESSAGE: return logoutMessage(state, action);
     case actionTypes.DELETE_MESSAGE: return deleteMessage(state, action);
+    case actionTypes.RESET_ERROR: return resetError(state, action);
     default: return state;
   }
 };

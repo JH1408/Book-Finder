@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import Backdrop from '../UI/Backdrop/Backdrop';
 import Spinner from '../UI/Spinner/Spinner';
@@ -14,7 +14,7 @@ const Login = (props) => {
       required: true,
       isEmail: true
     },
-    emailIsValid: false
+    isValid: false
   });
 
   const [password, setPassword] = useState({
@@ -23,12 +23,14 @@ const Login = (props) => {
       required: true,
       minLength: 7,
     },
-    passwordIsValid: false
+    isValid: false
   });
 
   const [isSignedUp, setIsSignedUp] = useState(false);
 
   const [isValid, setIsValid] = useState(true);
+
+  const [isError, setIsError] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -40,8 +42,50 @@ const Login = (props) => {
     return state.auth.error;
   });
 
+  useEffect(() => {
+    if(error) {
+      setIsError(true)
+    };
+    if(!props.visible) {
+      const updatedEmail = updateObject(email, {
+        value: '',
+      });
+      const updatedPassword = updateObject(password, {
+        value: '',
+      });
+      setEmail(updatedEmail);
+      setPassword(updatedPassword);
+    }
+  }, [error, props.visible]);
+
   const setIsSignedUpHandler = () => {
     setIsSignedUp(!isSignedUp);
+    setIsValid(true);
+    setIsError(false);
+  }
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    if(email.isValid && password.isValid) {
+      dispatch(actions.auth(email.value, password.value, isSignedUp));
+    } else {
+      setIsValid(false)
+    }
+  }
+
+  const emailChangedHandler = (event) => {
+    const updatedEmail = updateObject(email, {
+      value: event.target.value,
+      isValid: checkValidity(event.target.value, email.validation),
+    });
+    setEmail(updatedEmail);
+  }
+  const passwordChangedHandler = (event) => {
+    const updatedPassword = updateObject(password, {
+      value: event.target.value,
+      isValid: checkValidity(event.target.value, password.validation),
+    });
+    setPassword(updatedPassword);
   }
 
   let loginForm = <Spinner />;
@@ -64,36 +108,12 @@ const Login = (props) => {
     )
   }
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    if(email.isValid && password.isValid) {
-      dispatch(actions.auth(email.value, password.value, isSignedUp));
-    } else {
-      setIsValid(false)
-    }
-  }
-
-  const emailChangedHandler = (event) => {
-    const updatedEmail = updateObject(email, {
-      value: event.target.value,
-      valid: checkValidity(event.target.value, email.validation),
-    });
-    setEmail(updatedEmail);
-  }
-  const passwordChangedHandler = (event) => {
-    const updatedPassword = updateObject(password, {
-      value: event.target.value,
-      valid: checkValidity(event.target.value, password.validation),
-    });
-    setPassword(updatedPassword);
-  }
-
   let message = null;
-  if(error & isSignedUp) {
+  if(isError & isSignedUp) {
     message = (
       <p className={classes.errorMessage}>Incorrect username or password.</p>
     );
-  } else if(error) {
+  } else if(isError) {
     message = (
       <p className={classes.errorMessage}>Sorry, something went wrong. Please try again.</p>
     )

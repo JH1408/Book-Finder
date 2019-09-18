@@ -27,5 +27,6 @@ export {
   authCheckState,
   logoutSucceed,
   logoutMessage,
-  deleteMessage
+  deleteMessage,
+  resetError
 } from './auth';
