@@ -2,6 +2,7 @@ import {put, call} from 'redux-saga/effects';
 import axios from 'axios';
 import * as actions from '../actions/index';
 
+
 export function* logoutSaga(action) {
   yield call([localStorage, 'removeItem'], 'token');
   yield call([localStorage, 'removeItem'], 'userId');
@@ -12,8 +13,7 @@ export function* authUserSaga(action) {
   yield put(actions.authStart());
   const authData = {
     email: action.email,
-    password: action.password,
-    returnSecureToken: true
+    password: action.password
   };
   let url = `http://localhost:3001/users`;
   if (action.isSignedUp) {
@@ -21,8 +21,9 @@ export function* authUserSaga(action) {
   }
   try {
     const response = yield axios.post(url , authData);
-    yield localStorage.removeItem('token');
-    yield localStorage.removeItem('userId');
+    const day = new Date();
+    const expirationDate = day.setDate(day.getDate() + 5);
+    yield localStorage.setItem('expirationDate', expirationDate);
     yield localStorage.setItem('token', response.data[1]);
     yield localStorage.setItem('userId', response.data[0]._id);
     yield put(actions.authSuccess(response.data[1], response.data[0]._id));
@@ -37,7 +38,14 @@ export function* authCheckStateSaga(action) {
     yield put(actions.logout());
     yield put(actions.logoutMessage());
   } else {
-    const userId = localStorage.getItem('userId');
-    yield put(actions.authSuccess(token, userId));
+    const expirationDate = yield localStorage.getItem('expirationDate');
+    const day = new Date();
+    const today = day.setDate(day.getDate());
+    if(expirationDate - today < 0) {
+      yield put(actions.logout());
+    } else {
+      const userId = localStorage.getItem('userId');
+      yield put(actions.authSuccess(token, userId));
+    }
   }
 }

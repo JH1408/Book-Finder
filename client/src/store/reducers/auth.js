@@ -53,7 +53,7 @@ const resetError = (state, action) => {
   return updateObject(state, {
     error: null
   });
-}
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

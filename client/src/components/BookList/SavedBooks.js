@@ -47,22 +47,12 @@ const SavedBooks = (props) => {
         if (book.img !== null) {
           img = <img src={book.img} alt=""/>
         }
-        let author = null;
-        if (book.author !== null) {
-          if(book.author.length > 70) {
-            author =  `${book.author.split(',').join(', ').substring(0, 70)}...`;
-          } else if (book.author.indexOf(',') !== -1) {
-            author = book.author.split(',').join(', ');
-          } else {
-            author = book.author
-          }
-        }
         return (
-            <div className={classes.Card} key={book.id}>
+            <div className={classes.Card} key={book._id}>
               {img}
               <div className={classes.Info}>
                 <h2>{book.title}</h2>
-                <p>{author}</p>
+                <p>{book.author}</p>
                 <a href={book.link} target="_blank" rel="noopener noreferrer"><button>View Book</button></a>
                 <button onClick={(event) => removeBooksHandler(event, book._id)}>Remove Book</button>
               </div>

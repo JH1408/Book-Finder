@@ -38,7 +38,12 @@ const Homepage = (props) => {
     }
   }, [isAuth]);
 
-  let component = <BookList unauthenticated={openModalHandler}/>
+  let component = (
+    <React.Fragment>
+      <Search/>
+      <BookList unauthenticated={openModalHandler}/>
+    </React.Fragment>
+  );
   if (props.history.location.pathname === '/books') {
     component = <SavedBooks unauthenticated={openModalHandler} />
   }
@@ -47,7 +52,6 @@ const Homepage = (props) => {
     <React.Fragment>
       <Login visible={visible} hide={closeModalHandler}/>
       <Header clicked={openModalHandler}/>
-      <Search/>
       {component}
     </React.Fragment>
   )

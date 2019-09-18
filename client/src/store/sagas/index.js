@@ -8,7 +8,6 @@ import {authUserSaga} from './auth';
 import {authCheckStateSaga} from './auth';
 import {logoutSaga} from './auth';
 
-
 export function* watchBook() {
   yield takeEvery(actionTypes.SEARCH_BOOKS, searchBooksSaga);
   yield takeEvery(actionTypes.FETCH_BOOKS, fetchBooksSaga);
