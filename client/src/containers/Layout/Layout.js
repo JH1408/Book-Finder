@@ -9,7 +9,12 @@ import Login from '../../components/Login/Login';
 import * as actions from '../../store/actions/index';
 
 const Homepage = (props) => {
+
   const [visible, setVisible] = useState(false);
+  const [inputValue, setInputValue] = useState('');
+  const [maxResults] = useState(10);
+  const [startIndex, setStartIndex] = useState(11);
+
 
   const isAuth = useSelector(state => {
     return state.auth.token !== null
@@ -32,16 +37,27 @@ const Homepage = (props) => {
     dispatch(actions.resetError());
   }
 
+  const searchBooks = (input) => {
+    setInputValue(input)
+    dispatch(actions.searchBooks(input));
+  }
+
+  const fetchBooks = () => {
+    setStartIndex(startIndex + maxResults);
+    dispatch(actions.loadMoreBooks(inputValue, startIndex))
+  }
+
   useEffect(() => {
     if(isAuth) {
       setVisible(false);
     }
   }, [isAuth]);
 
+
   let component = (
     <React.Fragment>
-      <Search/>
-      <BookList unauthenticated={openModalHandler}/>
+      <Search search={searchBooks}/>
+      <BookList unauthenticated={openModalHandler} search={fetchBooks}/>
     </React.Fragment>
   );
   if (props.history.location.pathname === '/books') {

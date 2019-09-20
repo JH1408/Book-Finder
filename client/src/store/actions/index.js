@@ -1,6 +1,9 @@
 
 export {
   searchBooks,
+  loadMoreBooks,
+  loadMoreBooksStart,
+  loadMoreBooksSuccess,
   searchBooksFail,
   searchBooksStart,
   searchBooksSuccess,

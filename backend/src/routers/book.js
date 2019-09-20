@@ -8,10 +8,11 @@ const auth = require('../middleware/auth');
 const router = new express.Router();
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-router.get('/books/search/:query', async (req, res) => {
-  const searchQuery = req.params.query;
+router.get('/books/search', async (req, res) => {
+  const searchQuery = req.query.q;
+  const startIndex = req.query.startIndex;
   try {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&key=${process.env.BOOKS_API_KEY}`)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchQuery}&startIndex=${startIndex}&key=${process.env.BOOKS_API_KEY}`)
     .then(response => response.json())
     .then(data => {
       res.status(201).send(data.items);

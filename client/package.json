@@ -6,6 +6,7 @@
     "babel-eslint": "^10.0.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-infinite-scroll-component": "^4.5.3",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
@@ -32,5 +33,6 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "proxy": "http://localhost:3001"
 }

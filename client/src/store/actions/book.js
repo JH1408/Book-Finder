@@ -7,6 +7,20 @@ export const searchBooksSuccess = (books) => {
   };
 };
 
+export const loadMoreBooksSuccess = (books) => {
+  return {
+    type: actionTypes.LOAD_MORE_BOOKS_SUCCESS,
+    books: books
+  };
+};
+
+export const loadMoreBooksStart = (search) => {
+  return {
+    type: actionTypes.LOAD_MORE_BOOKS_START,
+    search: search
+  };
+};
+
 export const searchBooksFail = (error) => {
   return {
     type: actionTypes.SEARCH_BOOKS_FAIL,
@@ -23,7 +37,15 @@ export const searchBooksStart = () => {
 export const searchBooks = (inputValue) => {
   return {
     type: actionTypes.SEARCH_BOOKS,
-    inputValue: inputValue
+    inputValue: inputValue,
+  };
+};
+
+export const loadMoreBooks = (inputValue, startIndex) => {
+  return {
+    type: actionTypes.LOAD_MORE_BOOKS,
+    inputValue: inputValue,
+    startIndex: startIndex
   };
 };
 

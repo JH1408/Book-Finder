@@ -6,7 +6,7 @@ export function* searchBooksSaga(action) {
   yield put(actions.searchBooksStart());
   const searchQuery = action.inputValue.replace(/\s/g, '+');
   try {
-    const response = yield axios.get(`http://localhost:3001/books/search/${searchQuery}`);
+    const response = yield axios.get(`http://localhost:3001/books/search?q=${searchQuery}&startIndex=1`);
     const books = [];
     for (let key in response.data) {
       books.push({
@@ -14,6 +14,22 @@ export function* searchBooksSaga(action) {
         id: key});
       }
     yield put(actions.searchBooksSuccess(books));
+  } catch (e) {
+    yield put(actions.searchBooksFail(e));
+  }
+}
+
+export function* loadMoreBooksSaga(action) {
+  yield put(actions.loadMoreBooksStart());
+  try {
+    const response = yield axios.get(`http://localhost:3001/books/search?q=${action.inputValue}&startIndex=${action.startIndex}`);
+    const books = [];
+    for (let key in response.data) {
+      books.push({
+        ...response.data[key],
+        id: key + Math.random()});
+      }
+    yield put(actions.loadMoreBooksSuccess(books));
   } catch (e) {
     yield put(actions.searchBooksFail(e));
   }

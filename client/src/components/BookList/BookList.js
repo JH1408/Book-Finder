@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from './BookList.module.css';
 import * as actions from '../../store/actions/index';
 
 const BookList = (props) => {
-
-  const [titleIsSaved, setTitleIsSaved] = useState(null);
-  const [authorIsSaved, setAuthorIsSaved] = useState(null);
 
   const books = useSelector(state => {
     return state.book.books;
@@ -29,6 +27,9 @@ const BookList = (props) => {
     return state.auth.token !== null
   });
 
+  const [titleIsSaved, setTitleIsSaved] = useState(null);
+  const [authorIsSaved, setAuthorIsSaved] = useState(null);
+
   const dispatch = useDispatch();
 
   const saveBooksHandler = (event, title, author, img, link) => {
@@ -38,7 +39,8 @@ const BookList = (props) => {
       const owner = localStorage.getItem('userId');
       dispatch(actions.saveBooks(title, author, img, link, owner, token));
       setTitleIsSaved(title);
-      setAuthorIsSaved(author)
+      setAuthorIsSaved(author);
+      console.log(titleIsSaved, authorIsSaved);
     } else {
       props.unauthenticated();
     }
@@ -64,7 +66,7 @@ const BookList = (props) => {
                                 book.volumeInfo.previewLink)}
             >Save Book</button>
         )
-        if(titleIsSaved === book.volumeInfo.title && authorIsSaved === book.volumeInfo.authors && !error) {
+        if(titleIsSaved === book.volumeInfo.title && authorIsSaved === author && !error) {
           button = <p className={classes.Saved}>Successfully saved!</p>
         }
 
@@ -90,11 +92,24 @@ const BookList = (props) => {
     }
   }
 
+  let loader = <Spinner/>;
+  if(books.length < 10 || search) {
+    loader = null;
+  }
+
     return (
       <div className={classes.BookList}>
-        {bookList}
+        <InfiniteScroll
+            dataLength={books.length}
+            next={props.search}
+            hasMore={true}
+            loader={loader}
+            endMessage={<h2>Sorry, no more results available.</h2>}>
+            {bookList}
+        </InfiniteScroll>
       </div>
     );
   }
+
 
 export default BookList;

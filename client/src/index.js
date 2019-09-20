@@ -5,7 +5,6 @@ import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import {BrowserRouter} from 'react-router-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 import createSagaMiddleware from 'redux-saga';
 import bookReducer from './store/reducers/book';
 import authReducer from './store/reducers/auth';
@@ -35,5 +34,3 @@ const app = (
 );
 
 ReactDOM.render(app, document.getElementById('root'));
-
-serviceWorker.unregister();

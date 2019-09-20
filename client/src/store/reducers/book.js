@@ -10,7 +10,21 @@ const initialState = {
 };
 
 const searchBooksStart = (state, action) => {
-    return updateObject(state, {loading: true});
+    return updateObject(state, {
+      loading: true,
+      search: true
+  });
+};
+
+const loadMoreBooksStart = (state, action) => {
+    return updateObject(state, {search: false});
+};
+
+const loadMoreBooksSuccess = (state, action) => {
+  const books = [...state.books, ...action.books];
+  return updateObject(state, {
+    books: books,
+  });
 };
 
 const searchBooksSuccess = (state, action) => {
@@ -93,6 +107,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SEARCH_BOOKS_START: return searchBooksStart(state, action);
     case actionTypes.SEARCH_BOOKS_SUCCESS: return searchBooksSuccess(state, action);
     case actionTypes.SEARCH_BOOKS_FAIL: return searchBooksFail(state, action);
+    case actionTypes.LOAD_MORE_BOOKS_START: return loadMoreBooksStart(state, action);
+    case actionTypes.LOAD_MORE_BOOKS_SUCCESS: return loadMoreBooksSuccess(state, action);
     case actionTypes.FETCH_BOOKS_START: return fetchBooksStart(state, action);
     case actionTypes.FETCH_BOOKS_SUCCESS: return fetchBooksSuccess(state, action);
     case actionTypes.FETCH_BOOKS_FAIL: return fetchBooksFail(state, action);
