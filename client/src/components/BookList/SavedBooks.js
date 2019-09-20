@@ -41,14 +41,14 @@ const SavedBooks = (props) => {
 
   let bookList = <Spinner />;
   if (!loading) {
-    if(books){
+    if(books.length >= 1){
       bookList = books.map(book => {
         let img = null
         if (book.img !== null) {
           img = <img src={book.img} alt=""/>
         }
         return (
-            <div className={classes.Card} key={book._id}>
+            <div className={classes.Card} key={book._id + Math.random()}>
               {img}
               <div className={classes.Info}>
                 <h2>{book.title}</h2>

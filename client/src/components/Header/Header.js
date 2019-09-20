@@ -3,6 +3,8 @@ import {NavLink} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import classes from './Header.module.css';
 import Logout from './Logout/Logout';
+import ToggleIcon from '../Header/ToggleIcon/ToggleIcon';
+import Backdrop from '../UI/Backdrop/Backdrop';
 import * as actions from '../../store/actions/index';
 
 const Header = (props) => {
@@ -44,6 +46,11 @@ const Header = (props) => {
     )
   }
 
+  let attachedClasses = [classes.Menu, classes.Closed];
+  if(props.show) {
+    attachedClasses = [classes.Menu, classes.Open];
+  }
+
   return (
     <React.Fragment>
       <nav className={classes.Nav}>
@@ -51,8 +58,10 @@ const Header = (props) => {
           <NavLink className={classes.NavItem} exact to="/">Book Finder</NavLink>
         </div>
         {logoutMessage}
-        <div>
-          <NavLink className={classes.NavItem} exact to="/books">Saved Books</NavLink>
+        <ToggleIcon clicked={props.toggle} show={props.show}/>
+        <Backdrop show={props.show} clicked={props.hide}/>
+        <div className={attachedClasses.join(' ')}>
+          <NavLink className={classes.NavItem} exact to="/books" onClick={props.hide}>Saved Books</NavLink>
           <button onClick={props.clicked}>{isAuth ? 'Log Out' : 'Sign Up'}</button>
         </div>
       </nav>

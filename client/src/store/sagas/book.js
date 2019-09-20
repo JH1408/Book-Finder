@@ -6,7 +6,7 @@ export function* searchBooksSaga(action) {
   yield put(actions.searchBooksStart());
   const searchQuery = action.inputValue.replace(/\s/g, '+');
   try {
-    const response = yield axios.get(`http://localhost:3001/books/search?q=${searchQuery}&startIndex=1`);
+    const response = yield axios.get(`/books/search?q=${searchQuery}&startIndex=1`);
     const books = [];
     for (let key in response.data) {
       books.push({
@@ -22,7 +22,7 @@ export function* searchBooksSaga(action) {
 export function* loadMoreBooksSaga(action) {
   yield put(actions.loadMoreBooksStart());
   try {
-    const response = yield axios.get(`http://localhost:3001/books/search?q=${action.inputValue}&startIndex=${action.startIndex}`);
+    const response = yield axios.get(`/books/search?q=${action.inputValue}&startIndex=${action.startIndex}`);
     const books = [];
     for (let key in response.data) {
       books.push({
@@ -46,7 +46,7 @@ export function* saveBooksSaga(action) {
     token: action.token
   };
   try {
-    const res = yield axios.post(`http://localhost:3001/books`, bookData);
+    const res = yield axios.post(`/books`, bookData);
     const savedBooks = [];
     const response = yield JSON.parse(res.config.data);
     savedBooks.push({...response});
@@ -59,7 +59,7 @@ export function* saveBooksSaga(action) {
 export function* fetchBooksSaga(action) {
   yield put(actions.fetchBooksStart());
   try {
-    const response = yield axios.get(`http://localhost:3001/books/${action.userId}/${action.token}`, );
+    const response = yield axios.get(`/books/${action.userId}/${action.token}`, );
     const books = [];
     for (let key in response.data) {
       books.push({
@@ -75,7 +75,7 @@ export function* fetchBooksSaga(action) {
 export function* removeBooksSaga(action) {
   yield put(actions.removeBooksStart());
   try {
-    yield axios.delete(`http://localhost:3001/books/${action.owner}/${action.token}/${action.bookId}`);
+    yield axios.delete(`/books/${action.owner}/${action.token}/${action.bookId}`);
     yield put(actions.removeBooksSuccess());
     yield put(actions.fetchBooks(action.token, action.owner));
   } catch (e) {

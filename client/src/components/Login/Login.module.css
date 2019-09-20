@@ -87,3 +87,35 @@
   color: #d10873;
   font-size: 0.8rem;
 }
+
+@media (max-width: 570px) {
+  .LoginModal {
+    width: 60%;
+    left: 20%;
+    height: 390px;
+  }
+
+  .LoginModal h2 {
+    font-size: 1.6rem;
+  }
+
+  .LoginModal label {
+    font-size: 1rem;
+  }
+
+  .LoginModal input {
+    font-size: 0.8rem;
+  }
+
+  .LoginModal button {
+    font-size: 1rem;
+    width: 180px;
+  }
+}
+
+@media (max-width: 400px) {
+  .LoginModal {
+    left: 10%;
+    width: 80%;
+  }
+}

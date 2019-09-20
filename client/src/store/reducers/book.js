@@ -12,7 +12,8 @@ const initialState = {
 const searchBooksStart = (state, action) => {
     return updateObject(state, {
       loading: true,
-      search: true
+      search: true,
+      touched: true
   });
 };
 
@@ -45,7 +46,8 @@ const searchBooksFail = (state, action) => {
 const fetchBooksStart = (state, action) => {
     return updateObject(state, {
       loading: true,
-      error: false
+      error: false,
+      touched: false
     });
 };
 

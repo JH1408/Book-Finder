@@ -15,9 +15,9 @@ export function* authUserSaga(action) {
     email: action.email,
     password: action.password
   };
-  let url = `http://localhost:3001/users`;
+  let url = `/users`;
   if (action.isSignedUp) {
-    url = `http://localhost:3001/users/login`;
+    url = `/users/login`;
   }
   try {
     const response = yield axios.post(url , authData);

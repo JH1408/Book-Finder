@@ -56,3 +56,46 @@
   font-size: 1.5rem;
   color: #d10873;
 }
+
+.Menu {
+  transition: all 0.3s ease-out;
+}
+
+@media (max-width: 450px) {
+  .Header {
+    font-size: 2.5rem;
+  }
+
+  .Menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0;
+    z-index: 400;
+    background-color: rgb(247, 236, 242);
+    top: -150px;
+    width: 50%;
+    text-align: center;
+    padding: 40px 112px 20px;
+  }
+
+  .Closed {
+    opacity: 0;
+    z-index: 0;
+  }
+
+  .Open {
+    top: 0px;
+    opacity: 1;
+    animation: slideIn 0.8s;
+  }
+
+  .Nav button {
+    margin-top: 20px;
+  }
+}
+
+@keyframes slideIn {
+  from {top: -150px; opacity: 0}
+  to {top: 0px; opacity: 1}
+}

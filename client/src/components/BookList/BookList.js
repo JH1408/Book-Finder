@@ -15,6 +15,10 @@ const BookList = (props) => {
     return state.book.search;
   });
 
+  const touched = useSelector(state => {
+    return state.book.touched;
+  });
+
   const loading = useSelector(state => {
     return state.book.loading;
   });
@@ -40,7 +44,6 @@ const BookList = (props) => {
       dispatch(actions.saveBooks(title, author, img, link, owner, token));
       setTitleIsSaved(title);
       setAuthorIsSaved(author);
-      console.log(titleIsSaved, authorIsSaved);
     } else {
       props.unauthenticated();
     }
@@ -48,16 +51,17 @@ const BookList = (props) => {
 
   let bookList = <Spinner />;
   if (!loading) {
-    if(books.length >= 1){
+    if(books.length >= 1 && touched){
       bookList = books.map(book => {
         let img = null
         if (typeof book.volumeInfo.imageLinks !== 'undefined') {
           img = <img src={book.volumeInfo.imageLinks.thumbnail} alt=""/>
         }
-        let author = null;
+        let author = book.volumeInfo.authors;
         if (book.volumeInfo.authors) {
+          if(book.volumeInfo.authors.length > 1) {
           author =  `${book.volumeInfo.authors.join(', ').substring(0, 70)}...`
-        }
+        }}
         let button = (
           <button onClick={(event) =>
               saveBooksHandler(event,
@@ -69,7 +73,6 @@ const BookList = (props) => {
         if(titleIsSaved === book.volumeInfo.title && authorIsSaved === author && !error) {
           button = <p className={classes.Saved}>Successfully saved!</p>
         }
-
 
         return (
             <div className={classes.Card} key={book.id}>
@@ -84,7 +87,7 @@ const BookList = (props) => {
           )
         })
     } else {
-      if(search) {
+      if(search & touched) {
         bookList = <h2 className={classes.start}>Sorry, no results for your search.</h2>
       } else {
         bookList = <h2 className={classes.start}>Start searching for books.</h2>
@@ -93,7 +96,7 @@ const BookList = (props) => {
   }
 
   let loader = <Spinner/>;
-  if(books.length < 10 || search) {
+  if(books.length < 10 || search || !touched) {
     loader = null;
   }
 

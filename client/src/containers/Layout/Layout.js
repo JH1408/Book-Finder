@@ -14,7 +14,7 @@ const Homepage = (props) => {
   const [inputValue, setInputValue] = useState('');
   const [maxResults] = useState(10);
   const [startIndex, setStartIndex] = useState(11);
-
+  const [menu, setMenu] = useState(false)
 
   const isAuth = useSelector(state => {
     return state.auth.token !== null
@@ -28,6 +28,7 @@ const Homepage = (props) => {
       props.history.push('/');
     } else {
       setVisible(true);
+      setMenu(false);
     }
   }
 
@@ -38,13 +39,13 @@ const Homepage = (props) => {
   }
 
   const searchBooks = (input) => {
-    setInputValue(input)
+    setInputValue(input);
     dispatch(actions.searchBooks(input));
   }
 
   const fetchBooks = () => {
     setStartIndex(startIndex + maxResults);
-    dispatch(actions.loadMoreBooks(inputValue, startIndex))
+    dispatch(actions.loadMoreBooks(inputValue, startIndex));
   }
 
   useEffect(() => {
@@ -53,13 +54,21 @@ const Homepage = (props) => {
     }
   }, [isAuth]);
 
+  const toggleMenuHandler = () => {
+    setMenu(!menu);
+  }
+
+  const closeBackdropHandler = () => {
+    setMenu(false);
+  }
 
   let component = (
-    <React.Fragment>
-      <Search search={searchBooks}/>
-      <BookList unauthenticated={openModalHandler} search={fetchBooks}/>
-    </React.Fragment>
-  );
+      <React.Fragment>
+        <Search search={searchBooks}/>
+        <BookList unauthenticated={openModalHandler} search={fetchBooks}/>
+      </React.Fragment>
+    );
+
   if (props.history.location.pathname === '/books') {
     component = <SavedBooks unauthenticated={openModalHandler} />
   }
@@ -67,7 +76,7 @@ const Homepage = (props) => {
   return (
     <React.Fragment>
       <Login visible={visible} hide={closeModalHandler}/>
-      <Header clicked={openModalHandler}/>
+      <Header clicked={openModalHandler} toggle={toggleMenuHandler} show={menu} hide={closeBackdropHandler}/>
       {component}
     </React.Fragment>
   )

@@ -110,3 +110,38 @@
 .Saved {
   color: #d10873;
 }
+
+
+@media (max-width: 570px) {
+  body {
+    font-size: 12px;
+  }
+  img {
+   height: 100px;
+  }
+  .Card {
+    width: 300px;
+  }
+  .Info button {
+    font-size: 0.6rem;
+  }
+  .Info a button {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 440px) {
+  .Card {
+    width: 200px;
+  }
+  .Card h2 {
+    font-size: 0.8rem;
+  }
+  .Info a button {
+    font-size: 0.7rem;
+    margin-bottom: 10px;
+  }
+  .start {
+    font-size: 1.3rem;
+  }
+}
