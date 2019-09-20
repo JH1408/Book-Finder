@@ -25,6 +25,7 @@ const Homepage = (props) => {
   const openModalHandler = () => {
     if(isAuth) {
       dispatch(actions.logout());
+      setMenu(false);
       props.history.push('/');
     } else {
       setVisible(true);
