@@ -2,6 +2,7 @@ require('dotenv').config({path: '../.env'});
 const express = require('express');
 const cors = require('cors');
 require('./db/mongoose');
+const path = require('path');
 const User = require('./models/user');
 const Book = require('./models/book');
 const auth = require('./middleware/auth');
