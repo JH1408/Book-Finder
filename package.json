@@ -9,8 +9,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "cd backend/src && node app.js",
-    "dev": "concurrently \"cd backend/src && node app.js\" \"cd client && npm start\"",
+    "start": "cd backend && node src/app.js",
+    "dev": "concurrently \"cd backend && node src/app.js\" \"cd client && npm start\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
