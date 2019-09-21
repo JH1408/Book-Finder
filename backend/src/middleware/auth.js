@@ -1,6 +1,5 @@
 // jshint esversion:8
 const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
 const User = require('../models/user');
 
 const auth = async (req, res, next) => {

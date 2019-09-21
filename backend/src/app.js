@@ -1,6 +1,5 @@
 require('dotenv').config({path: '../.env'});
 const express = require('express');
-const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('./db/mongoose');
 const User = require('./models/user');
@@ -12,8 +11,6 @@ const bookRouter = require('./routers/book');
 const app = express();
 
 app.use(express.json());
-
-app.use(cookieParser());
 
 app.use(cors({
   origin: 'http://localhost:3000'
