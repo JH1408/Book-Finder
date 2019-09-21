@@ -19,6 +19,13 @@ app.use(cors({
 app.use(userRouter);
 app.use(bookRouter);
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
+app.get('*', (req, res) => {
+  if (req.url === '/books' || req.url === '/users') return next();
+  res.sendFile(path.join(__dirname+'../client/build/index.html'));
+});
+
 app.listen(process.env.PORT, () => {
   console.log('Server started on port ' + process.env.PORT);
 });
