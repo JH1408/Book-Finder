@@ -10,7 +10,7 @@
     top: 20%;
     box-sizing: border-box;
     transition: all 0.3s ease-out;
-    height: 430px;
+    height: auto;
     text-align: center;
     border-radius: 3px;
 }
@@ -92,7 +92,6 @@
   .LoginModal {
     width: 60%;
     left: 20%;
-    height: 390px;
   }
 
   .LoginModal h2 {

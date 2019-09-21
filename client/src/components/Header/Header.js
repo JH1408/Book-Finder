@@ -54,7 +54,7 @@ const Header = (props) => {
   return (
     <React.Fragment>
       <nav className={classes.Nav}>
-        <div>
+        <div className={classes.Logo}>
           <NavLink className={classes.NavItem} exact to="/">Book Finder</NavLink>
         </div>
         {logoutMessage}

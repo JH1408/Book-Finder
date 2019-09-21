@@ -55,6 +55,7 @@ const Login = (props) => {
       });
       setEmail(updatedEmail);
       setPassword(updatedPassword);
+      setIsSignedUp(false);
     }
   }, [error, props.visible]);
 

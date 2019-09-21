@@ -30,7 +30,7 @@
   transform: rotate(45deg) translate(-7px, -8px);
 }
 
-@media (min-width: 500px) {
+@media (min-width: 450px) {
     .ToggleIcon {
         display: none;
     }

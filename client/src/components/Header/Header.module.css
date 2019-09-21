@@ -42,6 +42,10 @@
 	top:1px;
 }
 
+.Logo {
+  z-index: 400;
+}
+
 .NavItem {
   text-decoration: none;
   color: #d10873;
