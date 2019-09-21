@@ -56,6 +56,8 @@ const Login = (props) => {
       setEmail(updatedEmail);
       setPassword(updatedPassword);
       setIsSignedUp(false);
+      setIsValid(true);
+      setIsError(false);
     }
   }, [error, props.visible]);
 
@@ -68,6 +70,8 @@ const Login = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
     if(email.isValid && password.isValid) {
+      dispatch(actions.auth(email.value, password.value, isSignedUp));
+    } else if (isSignedUp) {
       dispatch(actions.auth(email.value, password.value, isSignedUp));
     } else {
       setIsValid(false)
@@ -110,7 +114,7 @@ const Login = (props) => {
   }
 
   let message = null;
-  if(isError & isSignedUp) {
+  if(isError && isSignedUp) {
     message = (
       <p className={classes.errorMessage}>Incorrect username or password.</p>
     );
@@ -118,7 +122,8 @@ const Login = (props) => {
     message = (
       <p className={classes.errorMessage}>Sorry, something went wrong. Please try again.</p>
     )
-  } else if (!isValid) {
+  }
+  if (!isValid && !isSignedUp) {
     message = (
         <p className={classes.errorMessage}>Please enter a valid email address and a valid password. <br/> Passwords must consist of minimum 7 characters.</p>
     )
