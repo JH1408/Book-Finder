@@ -6,14 +6,16 @@ const initialState = {
   loading: false,
   savedBooks: [],
   search: false,
-  error: false
+  error: false,
+  errorType: null
 };
 
 const searchBooksStart = (state, action) => {
     return updateObject(state, {
       loading: true,
       search: true,
-      touched: true
+      touched: true,
+      error: false
   });
 };
 
@@ -32,7 +34,8 @@ const searchBooksSuccess = (state, action) => {
   return updateObject(state, {
     books: action.books,
     loading: false,
-    search: true
+    search: true,
+    errorType: null
   });
 };
 
@@ -76,7 +79,8 @@ const saveBooksStart = (state, action) => {
 const saveBooksSuccess = (state, action) => {
   return updateObject(state, {
     loading: false,
-    savedBooks: action.savedBooks
+    savedBooks: action.savedBooks,
+    errorType: null
   });
 };
 

@@ -33,9 +33,8 @@ router.post('/books', auth, async (req, res) => {
   });
   try {
     const books = await Book.find({owner: req.body.owner});
-    console.log(_.find(books, { 'title': req.body.title}) !== 'undefined');
-    if(_.find(books, { 'title': req.body.title}) !== 'undefined') {
-      return res.status(400).send('Already saved');
+    if( _.find(books, {'link': req.body.link}) !== undefined) {
+      res.status(400).send('Already saved');
     } else {
       await book.save();
     }
