@@ -92,6 +92,7 @@
     top: 0px;
     opacity: 1;
     animation: slideIn 0.8s;
+    animation-fill-mode: forwards;
   }
 
   .Nav button {
@@ -100,6 +101,12 @@
 }
 
 @keyframes slideIn {
-  from {top: -150px; opacity: 0}
-  to {top: 0px; opacity: 1}
+  from {
+    top: -150px;
+    opacity: 0
+  }
+  to {
+    top: 0px;
+    opacity: 1
+  }
 }

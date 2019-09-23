@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(rootReducer,composeEnhancers(applyMiddleware(sagaMiddleware)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMiddleware)));
 
 sagaMiddleware.run(watchBook);
 sagaMiddleware.run(watchAuth);

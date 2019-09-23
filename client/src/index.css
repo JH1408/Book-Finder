@@ -22,3 +22,7 @@ input:-webkit-autofill {
   -webkit-text-fill-color: rgb(76, 67, 78);
   transition: background-color 5000s ease-in-out 0s;
 }
+
+input[type=search] {
+  -webkit-appearance: none;
+}
