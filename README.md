@@ -21,7 +21,7 @@ See the project in action [here](https://josy-book-finder.herokuapp.com/).
 - Clone this project
 - cd into the project directory
 - Run `npm install` in your command line from the root folder and the client folder
-- Create a .env file in the root of the project with the URL to your MongoDB, your port and your Google Books API credentials
+- Create a `.env` file in the root of the project with the URL to your MongoDB, your port and your Google Books API credentials
 - Run `npm run dev` in your command line
 - Visit http://localhost:3000 in your browser
 
