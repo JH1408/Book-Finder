@@ -24,6 +24,10 @@ const Header = (props) => {
     return state.book.error
   });
 
+  const errorType = useSelector(state => {
+    return state.book.errorType;
+  });
+
   useEffect(() => {
     if(message) {
       setIsVisible(true);
@@ -40,7 +44,11 @@ const Header = (props) => {
   }
 
   let errorMessage = null;
-  if(error) {
+  if(error && errorType === 'Already saved') {
+    errorMessage = (
+      <p className={classes.Error}>Book is already saved.</p>
+    )
+  } else if(error) {
     errorMessage = (
       <p className={classes.Error}>Something went wrong. Please try again.</p>
     )

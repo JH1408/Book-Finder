@@ -2,6 +2,7 @@ require('dotenv').config({path: '../../.env'});
 const express = require('express');
 const fetch = require('node-fetch');
 const bodyParser = require('body-parser');
+const _ = require('lodash');
 const Book = require('../models/book');
 const auth = require('../middleware/auth');
 
@@ -31,7 +32,13 @@ router.post('/books', auth, async (req, res) => {
     link: req.body.link
   });
   try {
-    await book.save();
+    const books = await Book.find({owner: req.body.owner});
+    console.log(_.find(books, { 'title': req.body.title}) !== 'undefined');
+    if(_.find(books, { 'title': req.body.title}) !== 'undefined') {
+      return res.status(400).send('Already saved');
+    } else {
+      await book.save();
+    }
     res.status(201).send();
   } catch (err) {
     res.status(400).send(err);
@@ -41,7 +48,7 @@ router.post('/books', auth, async (req, res) => {
  router.get('/books/:userId/:token', auth, async (req, res) => {
      try {
        const books = await Book.find({owner: req.params.userId});
-       res.send(books);
+       res.send(_.uniqBy(books, 'title'));
      } catch(err) {
        res.status(500).send();
      }

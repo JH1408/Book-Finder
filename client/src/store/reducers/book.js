@@ -69,6 +69,7 @@ const saveBooksStart = (state, action) => {
     return updateObject(state, {
       loading: true,
       error: false,
+      errorType: null
     });
 };
 
@@ -82,7 +83,8 @@ const saveBooksSuccess = (state, action) => {
 const saveBooksFail = (state, action) => {
   return updateObject(state, {
     loading: false,
-    error: true
+    error: true,
+    errorType: action.errorType
   });
 };
 

@@ -44,10 +44,9 @@ userSchema.virtual('books', {
   foreignField: 'owner'
 });
 
-// Create new method for instance
 userSchema.methods.generateAuthToken = async function() {
   const user = this;
-  const token = jwt.sign({_id: user._id.toString()}, process.env.SECRET);
+  const token = jwt.sign({_id: user._id.toString()}, process.env.SECRET, {expiresIn: '5d'});
 
   user.tokens = user.tokens.concat({token});
   await user.save();
@@ -63,7 +62,6 @@ userSchema.methods.toJSON = function() {
   return userObject;
 };
 
-// Create new method for User model
 userSchema.statics.findByCredentials = async(email, password) => {
   const user = await User.findOne({email});
   if(!user) {
@@ -76,7 +74,6 @@ userSchema.statics.findByCredentials = async(email, password) => {
   return user;
 };
 
-// Hash password before saving
 userSchema.pre('save', async function(next) {
   const user = this;
   if(user.isModified('password')) {
@@ -85,7 +82,6 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
-// Delete saved books when user is removed
 userSchema.pre('remove', async function(next) {
   const user = this;
   await Book.deleteMany({author: user._id});

@@ -52,7 +52,7 @@ export function* saveBooksSaga(action) {
     savedBooks.push({...response});
     yield put(actions.saveBooksSuccess(savedBooks));
   } catch (e) {
-    yield put(actions.saveBooksFail(e));
+    yield put(actions.saveBooksFail(e, e.response.data));
   }
 }
 

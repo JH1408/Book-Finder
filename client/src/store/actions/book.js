@@ -96,10 +96,11 @@ export const saveBooksSuccess = (savedBooks) => {
   };
 };
 
-export const saveBooksFail = (error) => {
+export const saveBooksFail = (error, errorType) => {
   return {
     type: actionTypes.SAVE_BOOKS_FAIL,
-    error: error
+    error: error,
+    errorType: errorType
   };
 };
 
