@@ -6,6 +6,7 @@ import * as actions from '../actions/index';
 export function* logoutSaga(action) {
   yield call([localStorage, 'removeItem'], 'token');
   yield call([localStorage, 'removeItem'], 'userId');
+  yield call([localStorage, 'removeItem'], 'expirationDate');
   yield put(actions.logoutSucceed());
 }
 
@@ -43,6 +44,7 @@ export function* authCheckStateSaga(action) {
     const today = day.setDate(day.getDate());
     if(expirationDate - today < 0) {
       yield put(actions.logout());
+      yield put(actions.logoutMessage());
     } else {
       const userId = localStorage.getItem('userId');
       yield put(actions.authSuccess(token, userId));

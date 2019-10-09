@@ -32,6 +32,4 @@ router.post('/users/login', urlencodedParser, async (req, res) => {
   }
 });
 
-
-
 module.exports = router;
