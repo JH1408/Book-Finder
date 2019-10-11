@@ -44,7 +44,7 @@ router.post('/books', auth, async (req, res) => {
   }
 });
 
- router.get('/books/:userId/:token', auth, async (req, res) => {
+ router.get('/books/:userId', auth, async (req, res) => {
      try {
        const books = await Book.find({owner: req.params.userId});
        res.send(_.uniqBy(books, 'title'));
@@ -53,7 +53,7 @@ router.post('/books', auth, async (req, res) => {
      }
  });
 
-router.delete('/books/:owner/:token/:id', auth, async (req, res) => {
+router.delete('/books/:owner/:id', auth, async (req, res) => {
   try {
     const book = await Book.findOneAndDelete({_id: req.params.id, owner: req.params.owner});
     if(!book) {

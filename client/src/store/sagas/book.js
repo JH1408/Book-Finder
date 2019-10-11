@@ -42,11 +42,10 @@ export function* saveBooksSaga(action) {
     author: action.author,
     img: action.img,
     link: action.link,
-    owner: action.owner,
-    token: action.token
+    owner: action.owner
   };
   try {
-    const res = yield axios.post(`/books`, bookData);
+    const res = yield axios.post(`/books`, bookData, {headers: {'Authorization': action.token}});
     const savedBooks = [];
     const response = yield JSON.parse(res.config.data);
     savedBooks.push({...response});
@@ -59,7 +58,7 @@ export function* saveBooksSaga(action) {
 export function* fetchBooksSaga(action) {
   yield put(actions.fetchBooksStart());
   try {
-    const response = yield axios.get(`/books/${action.userId}/${action.token}`, );
+    const response = yield axios.get(`/books/${action.userId}`, {headers: {'Authorization': action.token}});
     const books = [];
     for (let key in response.data) {
       books.push({
@@ -75,7 +74,7 @@ export function* fetchBooksSaga(action) {
 export function* removeBooksSaga(action) {
   yield put(actions.removeBooksStart());
   try {
-    yield axios.delete(`/books/${action.owner}/${action.token}/${action.bookId}`);
+    yield axios.delete(`/books/${action.owner}/${action.bookId}`, {headers: {'Authorization': action.token}});
     yield put(actions.removeBooksSuccess());
     yield put(actions.fetchBooks(action.token, action.owner));
   } catch (e) {
