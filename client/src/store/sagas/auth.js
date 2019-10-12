@@ -4,6 +4,9 @@ import * as actions from '../actions/index';
 
 
 export function* logoutSaga(action) {
+  if (localStorage.getItem('token')) {
+    yield axios.post('/users/logout' , null, {headers: {'Authorization': localStorage.getItem('token')}});
+  }
   yield call([localStorage, 'removeItem'], 'token');
   yield call([localStorage, 'removeItem'], 'userId');
   yield call([localStorage, 'removeItem'], 'expirationDate');
